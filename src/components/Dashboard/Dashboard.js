@@ -11,7 +11,7 @@ class Dashboard extends Component {
             const recipe = recipes[i];
             return (
                 <div key={recipe.id} className='a-recipe'>
-                    <div className='a-recipe-title'>{recipe.title}</div>
+                    <div className='a-recipe-thumbnail'>{recipe.title}</div>
                     <div className='a-recipe-description'>{recipe.content}</div>
                 </div>
             )
