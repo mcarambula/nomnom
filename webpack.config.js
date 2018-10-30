@@ -19,18 +19,30 @@ module.exports = {
     publicPath : '/'
   },
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['transform-es2015-arrow-functions']
-          }
+      rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env', '@babel/preset-react'],
+                plugins: ['transform-es2015-arrow-functions']
+              }
+            }
+        },
+        {
+            test: /\.scss$/,
+            use: [
+                "style-loader", // creates style nodes from JS strings
+                "css-loader", // translates CSS into CommonJS
+                "sass-loader" // compiles Sass to CSS, using Node Sass by default
+            ]
+        },
+        {
+            test: /\.svg$/,
+            loader: 'svg-url-loader'
         }
-      }
     ]
   },
   plugins: [HtmlWebpackPluginConfig]
