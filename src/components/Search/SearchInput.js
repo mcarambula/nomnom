@@ -23,22 +23,22 @@ class SearchInput extends Component {
 	}
 	render() {
 		return (
-			<div className="search-books-input-wrapper">
-				<div className='list-title'>
+			<div className='search-books-input-wrapper'>
+				<div className='app-title'>
 					List of recipes
 					<div className='show-search' onClick={() => this.showInput()}/>
 				</div>
 				<input
-						type="text"
+						type='text'
 						value={this.state.search}
-						placeholder="Search recipe"
+						placeholder='Search recipe'
 						onChange={e => this.handleInputChange(e)}
 						className={`input-search ${this.state.show ? 'open' : ''}`}
 						ref={input => {
 							this.searchInput = input;
 						}}
 					/>
-				{ this.state.show && <div className="clean-search" onClick={() => this.cleanInput()} /> }
+				{ this.state.show && <div className='clean-search' onClick={() => this.cleanInput()} /> }
 			</div>
 		);
 	}

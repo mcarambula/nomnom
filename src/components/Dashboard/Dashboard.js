@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import SearchInput from '../Search/SearchInput';
 import './Dashboard.scss';
 
 const Dashboard = () => (
-    <div className="app">
-		<div className="recipes">
-			<div className="title">
-				<h1>NomNom Recipes App</h1>
-			</div>
-            <div className="content">
-				<SearchInput />
-                <div className="add-recipe">
-					<div className='add'>Add a book</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <Fragment>
+            <SearchInput />
+            <div className='results'>
+                There's no recipe yet.
+            </div>
+            <div className="add-recipe">
+                <Link to='add' className='add'>Add a book</Link>
+            </div>
+        </Fragment>
 )
 
 export default Dashboard;

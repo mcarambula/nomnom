@@ -15,20 +15,22 @@
 		display: flex;
 		justify-content: space-between;
 		line-height: 24px;
+		border-bottom: 1px dashed #000;
+		padding-bottom: 10px;
+		text-transform: uppercase;
 	}
 	.input-search {
-		width: 100%;
-		font-size: 12px;
+		background: whitesmoke;
 		border: none;
 		outline: none;
+		font-size: 12px;
 		line-height: 23px;
-		width: 0%;
 		transition: width 0.5s;
 		position: absolute;
 		top: 6px;
 		z-index: 2;
-		background: whitesmoke;
 		padding: 5px 0;
+		width: 0%;
 		&.open {
 			width: 100%;
 			padding: 5px 10px;
