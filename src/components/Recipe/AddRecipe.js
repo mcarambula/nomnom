@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { addRecipe } from '../../api/api';
 import './AddRecipe.scss';
 
 class AddRecipe extends Component {
@@ -21,6 +22,7 @@ class AddRecipe extends Component {
         e.preventDefault();
         this.setState({ submitting: true });
         const { title, description } = this.state;
+        addRecipe(title, description);
         console.log(title, description);
     }
     render() {
