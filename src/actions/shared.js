@@ -11,7 +11,7 @@ export const handleInitialData = () => (dispatch) => {
                 dispatch(hideLoading());
             })
 }
-/* Thunk that will be triggered when the user adds a new recipe
+/* Thunk that will be triggered when the user adds a new recipe */
 export const handleAddRecipe = (title, content) => ( dispatch, getState ) => {
     dispatch(showLoading());
     return API.addRecipe({title, content})
@@ -20,4 +20,3 @@ export const handleAddRecipe = (title, content) => ( dispatch, getState ) => {
             })
             .then(() => dispatch(hideLoading()));
 }
-*/

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { addRecipe } from '../../api/api';
+import { handleAddRecipe } from '../../actions/shared';
 import './AddRecipe.scss';
 
 class AddRecipe extends Component {
@@ -22,8 +24,9 @@ class AddRecipe extends Component {
         e.preventDefault();
         this.setState({ submitting: true });
         const { title, description } = this.state;
-        addRecipe(title, description);
-        console.log(title, description);
+        this.props
+            .handleAddRecipe(title, description)
+            .then(() => this.props.history.push('/'));
     }
     render() {
         const { title, description, submitting } = this.state;
@@ -57,4 +60,6 @@ class AddRecipe extends Component {
     }
 }
 
-export default AddRecipe;
+const mapDispatchToProps = { handleAddRecipe };
+
+export default withRouter(connect(null, mapDispatchToProps)(AddRecipe));

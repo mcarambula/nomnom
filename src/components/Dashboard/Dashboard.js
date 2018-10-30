@@ -3,22 +3,39 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getRecipes } from '../../api/api';
 import SearchInput from '../Search/SearchInput';
-import { handleInitialData } from '../../actions/shared';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
-    componentDidMount(){
-        this.props.handleInitialData();
+    renderRecipes(recipes) {
+        return Object.keys(recipes).map(i => {
+            const recipe = recipes[i];
+            return (
+                <div key={recipe.id} className='a-recipe'>
+                    <div className='a-recipe-title'>{recipe.title}</div>
+                    <div className='a-recipe-description'>{recipe.content}</div>
+                </div>
+            )
+        })
     }
     render() {
-        const { loading } = this.props;
+        const { loading, recipes } = this.props;
         return (
             <Fragment>
                 <SearchInput />
                 <div className='results'>
                     { loading
                         ? <div>Loading ... </div>
-                        : <div>There's no recipe yet.</div>
+                        :
+                            (
+                                recipes.length === 0 ?
+                                    <div>There's no recipe yet.</div>
+                                :
+                                    <div className='grid-recipe'>
+                                        {this.renderRecipes(recipes)}
+                                    </div>
+                            )
+
+
                     }
                 </div>
                 <div className="add-recipe">
@@ -29,12 +46,12 @@ class Dashboard extends Component {
     }
 }
 
-const mapDispatchToProps = { handleInitialData };
 
 function mapStateToProps({ recipes }){
     return {
-        loading: recipes === null
+        loading: recipes === null,
+        recipes
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

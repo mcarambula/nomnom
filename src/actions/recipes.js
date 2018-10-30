@@ -11,7 +11,7 @@ export const getRecipes = (recipes) => (
 
 export const addRecipe = (recipe) => (
     {
-        type: ADD_QUESTION,
+        type: ADD_RECIPE,
         recipe,
     }
 );

@@ -17,7 +17,12 @@ export function addRecipe({title, content}) {
         content
       })
       .then(response => checkStatus(response))
-      .then(res =>res.data)
+      .then(res => ({
+              title,
+              content,
+              id: res.data.id
+        })
+      )
       .catch(function (error) {
           console.log(error);
       });
@@ -25,7 +30,15 @@ export function addRecipe({title, content}) {
 
 export function getRecipes() {
     return axios.post(`${url}/_find`, {})
-      .then(response => response.data)
+      .then(response => {
+          const { data } = response;
+          let newData = {};
+          /* Storing the recipes by its own id */
+          Object.keys(data).map((recipe, i) => {
+              newData[data[i].id] = { ...data[i] };
+          })
+          return newData;
+      })
       .catch(function (error) {
           console.log(error);
       });
