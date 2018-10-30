@@ -24,7 +24,7 @@ class SearchInput extends Component {
 	render() {
 		return (
 			<div className="search-books-input-wrapper">
-				<div className='title'>
+				<div className='list-title'>
 					List of recipes
 					<div className='show-search' onClick={() => this.showInput()}/>
 				</div>

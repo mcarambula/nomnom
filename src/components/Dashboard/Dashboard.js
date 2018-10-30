@@ -4,12 +4,15 @@ import './Dashboard.scss';
 
 const Dashboard = () => (
     <div className="app">
-		<div className="list-recipes">
-			<div className="list-recipes-title">
+		<div className="recipes">
+			<div className="title">
 				<h1>NomNom Recipes App</h1>
 			</div>
-            <div className="list-recipes-content">
+            <div className="content">
 				<SearchInput />
+                <div className="add-recipe">
+					<div className='add'>Add a book</div>
+				</div>
 			</div>
 		</div>
 	</div>
