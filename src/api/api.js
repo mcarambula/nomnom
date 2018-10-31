@@ -24,7 +24,7 @@ export function addRecipe({title, content}) {
         })
       )
       .catch(function (error) {
-          console.log(error);
+          console.log('errr', error);
       });
 }
 
@@ -39,7 +39,7 @@ export function getRecipes() {
           })
           return newData;
       })
-      .catch(function (error) {
-          console.log(error);
+      .catch(function (err) {
+          throw new Error(err);
       });
 }

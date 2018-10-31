@@ -94,4 +94,11 @@
 		padding: 20px;
 		box-sizing: border-box;
 	}
+	.centered {
+		text-align: center;
+		padding-top: 10px;
+		color: $alert;
+		font-style: italic;
+		font-size: 14px;
+	}
 }

@@ -6,7 +6,7 @@ import SearchInput from '../Search/SearchInput';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
-    renderRecipes(recipes) {
+    gridRecipes(recipes) {
         return Object.keys(recipes).map(i => {
             const recipe = recipes[i];
             return (
@@ -17,25 +17,29 @@ class Dashboard extends Component {
             )
         })
     }
+    renderRecipes(recipes, error) {
+        console.log(error);
+        if (error) {
+            return <div className='centered'>An error has ocurred. Please try later.</div>
+        }
+        return (
+            recipes.length === 0 ?
+                <div className='centered'>There's no recipe yet.</div>
+            :
+                <div className='grid-recipe'>
+                    {this.gridRecipes(recipes)}
+                </div>
+        )
+    }
     render() {
-        const { loading, recipes } = this.props;
+        const { loading, recipes, error } = this.props;
         return (
             <Fragment>
                 <SearchInput />
                 <div className='results'>
                     { loading
                         ? <div>Loading ... </div>
-                        :
-                            (
-                                recipes.length === 0 ?
-                                    <div>There's no recipe yet.</div>
-                                :
-                                    <div className='grid-recipe'>
-                                        {this.renderRecipes(recipes)}
-                                    </div>
-                            )
-
-
+                        : this.renderRecipes(recipes, error)
                     }
                 </div>
                 <div className="add-recipe">
@@ -47,10 +51,11 @@ class Dashboard extends Component {
 }
 
 
-function mapStateToProps({ recipes }){
+function mapStateToProps({ recipes, error }){
     return {
-        loading: recipes === null,
-        recipes
+        loading: recipes === null && error === null,
+        recipes,
+        error
     }
 }
 
