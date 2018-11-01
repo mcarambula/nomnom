@@ -9,7 +9,6 @@ const Recipe = ({recipe, history}) => {
     return (
         <div className='a-recipe' onClick={() => seeDetail(recipe)}>
             <div className='a-recipe-thumbnail'>{recipe.title}</div>
-            <div className='a-recipe-description'>{recipe.content}</div>
         </div>
     )
 }

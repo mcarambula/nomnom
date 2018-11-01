@@ -55,7 +55,7 @@ class AddRecipe extends Component {
                          placeholder='Recipe Description'
                          onChange={(e) => this.handleInput(e, 'description')}
                          />
-                     <button className='cancel-button' disabled={submitting} onClick={() => this.props.history.replace('/')}> Cancel </button>
+                     <button className='cancel-button' disabled={submitting} onClick={() => this.props.history.goBack()}> Cancel </button>
                      <button className='button' disabled={submitting}>{submitting ? 'Saving...': 'Submit'}</button>
                  </form>
             </div>

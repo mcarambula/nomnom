@@ -43,3 +43,27 @@ export function getRecipes() {
           throw new Error(err);
       });
 }
+
+export function searchRecipe(query) {
+    return axios.post(`${url}/_find`, { id : query })
+      .then(response => {
+          const { data } = response;
+          console.log(data);
+      })
+      .catch(function (err) {
+          throw new Error(err);
+      });
+}
+
+
+export function deleteRecipe(recipe) {
+    return axios.post(`${url}/_delete`, { id : recipe.id })
+      .then(response => {
+          const { data } = response;
+          console.log(data);
+          return recipe;
+      })
+      .catch(function (err) {
+          throw new Error(err);
+      });
+}

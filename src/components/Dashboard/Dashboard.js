@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { searchRecipe } from '../../api/api';
 import SearchInput from '../Search/SearchInput';
 import Recipe from '../Recipe/Recipe';
 import './Dashboard.scss';
@@ -27,11 +28,29 @@ class Dashboard extends Component {
                 </div>
         )
     }
+    searchRecipes(query) {
+        console.log(query);
+		if (query === '') {
+			this.setState({search: '', recipes: [], loading: false });
+			return;
+		}
+		/* Wait until the state is updating to make the call to the API */
+		this.setState({ loading: true, search: query }, () => {
+			searchRecipe(query)
+				.then(searchedRecipes => {
+
+
+				})
+				.catch(e => {
+				});
+			}
+		);
+	}
     render() {
         const { loading, recipes, error } = this.props;
         return (
             <Fragment>
-                <SearchInput recipes={recipes}/>
+                <SearchInput recipes={recipes} searchRecipe={(query) => this.searchRecipes(query)}/>
                 <div className='results'>
                     { loading
                         ? <div>Loading ... </div>

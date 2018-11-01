@@ -12,6 +12,13 @@ export const getRecipes = (recipes) => (
 export const addRecipe = (recipe) => (
     {
         type: ADD_RECIPE,
-        recipe,
+        recipe
+    }
+);
+
+export const deleteRecipe = (recipe) => (
+    {
+        type: DELETE_RECIPE,
+        recipe
     }
 );

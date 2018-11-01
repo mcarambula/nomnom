@@ -17,11 +17,21 @@ export const handleInitialData = () => (dispatch) => {
             })
 }
 /* Thunk that will be triggered when the user adds a new recipe */
-export const handleAddRecipe = (title, content) => ( dispatch, getState ) => {
+export const handleAddRecipe = (title, content) => ( dispatch ) => {
     dispatch(showLoading());
     return API.addRecipe({title, content})
             .then((recipe) => {
                 dispatch(RECIPES_ACTIONS.addRecipe(recipe));
             })
             .then(() => dispatch(hideLoading()));
+}
+
+export const deleteRecipe = (recipe) => (dispatch) => {
+    dispatch(showLoading());
+    return API.deleteRecipe(recipe)
+            .then((recipe) => {
+                dispatch(RECIPES_ACTIONS.deleteRecipe(recipe));
+            })
+            .then(() => dispatch(hideLoading()));
+
 }

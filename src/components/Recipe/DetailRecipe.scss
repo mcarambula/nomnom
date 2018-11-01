@@ -1,7 +1,5 @@
 .recipe-detail {
     padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
     label {
         margin: 10px 0;
         display: block;
@@ -15,7 +13,9 @@
     }
     .recipe-detail-container {
         width: 100%;
+        max-width: 600px;
         display: flex;
+        margin: 0 auto;
     }
     .trash {
         width: 20px;
@@ -23,6 +23,7 @@
         cursor: pointer;
     }
     .recipe-detail-buttons {
-        margin-top: 20px;
+        max-width: 600px;
+        margin: 20px auto 0;
     }
 }

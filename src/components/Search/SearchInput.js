@@ -19,6 +19,10 @@ class SearchInput extends Component {
 	showInput() {
 		this.setState({show: true}, () => this.searchInput.focus());
 	}
+	searchRecipe(e) {
+		e.preventDefault();
+		this.props.searchRecipe(this.state.search);
+	}
 	render() {
 		const recipes = this.props.recipes || {};
 		const showSearch = (Object.keys(recipes).length !== 0) ? true : false;
@@ -30,7 +34,8 @@ class SearchInput extends Component {
 						<div className='show-search' onClick={() => this.showInput()}/>
 					}
 				</div>
-				<input
+				<form onSubmit={(e) => this.searchRecipe(e)}>
+					<input
 						type='text'
 						value={this.state.search}
 						placeholder='Search recipe'
@@ -40,6 +45,7 @@ class SearchInput extends Component {
 							this.searchInput = input;
 						}}
 					/>
+				</form>
 				{ this.state.show && <div className='clean-search' onClick={() => this.cleanInput()} /> }
 			</div>
 		);
