@@ -10,12 +10,18 @@
         background: url('../../assets/thumbnail.jpg');
         background-repeat: no-repeat;
         background-size: contain;
+        @media screen and (max-width: 640px) {
+            margin: 0 auto 20px;
+        }
     }
     .recipe-detail-container {
         width: 100%;
         max-width: 600px;
         display: flex;
         margin: 0 auto;
+        @media screen and (max-width: 640px) {
+            flex-direction: column;
+        }
     }
     .trash {
         width: 20px;
