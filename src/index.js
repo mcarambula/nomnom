@@ -9,6 +9,4 @@ import './styles/index.scss';
 
 const store = createStore(reducer, middleware);
 
-ReactDOM.render(<Provider store={store}>
-                    <App />
-                </Provider>, app);
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app'));

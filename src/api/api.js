@@ -35,7 +35,7 @@ export function getRecipes() {
           let newData = {};
           /* Storing the recipes by its own id */
           Object.keys(data).map((recipe, i) => {
-              newData[data[i].id] = { ...data[i] };
+              return newData[data[i].id] = { ...data[i] };
           })
           return newData;
       })

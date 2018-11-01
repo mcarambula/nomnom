@@ -45,7 +45,12 @@ module.exports = {
             'url-loader?limit=10000',
             'img-loader'
           ]
-        }
+        },
+        {
+         test: /\.js$/,
+         exclude: /node_modules/,
+         use: ['eslint-loader']
+       }
     ]
   },
   plugins: [HtmlWebpackPluginConfig]

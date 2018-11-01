@@ -1,8 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getRecipes } from '../../api/api';
 import SearchInput from '../Search/SearchInput';
+import Recipe from '../Recipe/Recipe';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
@@ -10,20 +10,16 @@ class Dashboard extends Component {
         return Object.keys(recipes).map(i => {
             const recipe = recipes[i];
             return (
-                <div key={recipe.id} className='a-recipe'>
-                    <div className='a-recipe-thumbnail'>{recipe.title}</div>
-                    <div className='a-recipe-description'>{recipe.content}</div>
-                </div>
+                <Recipe key={recipe.id} recipe={recipe} />
             )
         })
     }
     renderRecipes(recipes, error) {
-        console.log(error);
         if (error) {
-            return <div className='centered'>An error has ocurred. Please try later.</div>
+            return <div className='centered error'>An error has ocurred. Please try later.</div>
         }
         return (
-            recipes.length === 0 ?
+            Object.keys(recipes).length === 0 ?
                 <div className='centered'>There's no recipe yet.</div>
             :
                 <div className='grid-recipe'>
@@ -35,7 +31,7 @@ class Dashboard extends Component {
         const { loading, recipes, error } = this.props;
         return (
             <Fragment>
-                <SearchInput />
+                <SearchInput recipes={recipes}/>
                 <div className='results'>
                     { loading
                         ? <div>Loading ... </div>
@@ -49,7 +45,6 @@ class Dashboard extends Component {
         )
     }
 }
-
 
 function mapStateToProps({ recipes, error }){
     return {

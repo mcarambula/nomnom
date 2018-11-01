@@ -1,0 +1,28 @@
+.recipe-detail {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    label {
+        margin: 10px 0;
+        display: block;
+    }
+    .recipe-thumbnail {
+        width: 250px;
+        height: 150px;
+        background: url('../../assets/thumbnail.jpg');
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .recipe-detail-container {
+        width: 100%;
+        display: flex;
+    }
+    .trash {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+    .recipe-detail-buttons {
+        margin-top: 20px;
+    }
+}

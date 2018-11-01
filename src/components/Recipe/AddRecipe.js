@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addRecipe } from '../../api/api';
 import { handleAddRecipe } from '../../actions/shared';
 import './AddRecipe.scss';
 
@@ -28,11 +27,15 @@ class AddRecipe extends Component {
             .handleAddRecipe(title, description)
             .then(() => this.props.history.push('/'));
     }
+    renderTitle(recipe) {
+        return (recipe === null) ? 'Add a new recipe': 'Edit recipe'
+    }
     render() {
         const { title, description, submitting } = this.state;
+        const { recipe } = this.props;
         return (
             <div className='add-content'>
-                <h3 className='app-title'>Add a new recipe</h3>
+                <h3 className='app-title'>{this.renderTitle(recipe)}</h3>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <label>Recipe Title</label>
                     <input
@@ -62,4 +65,12 @@ class AddRecipe extends Component {
 
 const mapDispatchToProps = { handleAddRecipe };
 
-export default withRouter(connect(null, mapDispatchToProps)(AddRecipe));
+function mapStateToProps({ recipes }, { history }){
+    const params = (history.location.state !== undefined) ? history.location.state.params : { recipeId: null };
+    const { recipeId } = params;
+    return {
+        recipe: recipes[recipeId] || null
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddRecipe));

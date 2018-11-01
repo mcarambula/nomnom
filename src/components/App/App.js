@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from '../AppRoutes/AppRoutes';
 import { connect } from 'react-redux';
@@ -6,9 +6,6 @@ import { handleInitialData } from '../../actions/shared';
 import './App.scss';
 
 class App extends Component {
-    constructor(){
-        super();
-    }
     componentDidMount(){
         this.props.handleInitialData();
     }

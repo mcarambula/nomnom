@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './SearchInput.scss';
 
 class SearchInput extends Component {
@@ -12,7 +11,6 @@ class SearchInput extends Component {
 	}
 	handleInputChange(e){
 		const search = e.target.value;
-		const cleaned = search.trim();
 		this.setState({ search });
 	}
 	cleanInput(){
@@ -22,11 +20,15 @@ class SearchInput extends Component {
 		this.setState({show: true}, () => this.searchInput.focus());
 	}
 	render() {
+		const recipes = this.props.recipes || {};
+		const showSearch = (Object.keys(recipes).length !== 0) ? true : false;
 		return (
 			<div className='search-books-input-wrapper'>
 				<div className='app-title'>
 					List of recipes
-					<div className='show-search' onClick={() => this.showInput()}/>
+					{ showSearch &&
+						<div className='show-search' onClick={() => this.showInput()}/>
+					}
 				</div>
 				<input
 						type='text'
