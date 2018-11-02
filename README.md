@@ -1,13 +1,11 @@
 # NomNom Frontend Developer Coding Challenge
 
-This zip contains my implementation of the NomNom Frontend Developer Coding Challenge.
+This zip contains my implementation of the NomNom Frontend Developer Coding Challenge by Marion Carambula. Through this app, the user will be able to add, edit, delete and search recipes by id or a regex.
 
-For this project I used React + Redux + Redux Thunk + Sass.
-
-Through this app, the user will be able to add, edit, delete and search recipes by id or a regex.
+For this project I use React + Redux + Redux Thunk + Sass.
 
 ## Tested on
-This app has been tested on Chrome, Firefox, Safari and IE11.
+This app has been tested on Chrome, Firefox and Safari.
 
 ## Getting started
 
