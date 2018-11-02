@@ -32,10 +32,7 @@ class Dashboard extends Component {
             )
         })
     }
-    renderRecipes(recipes, error) {
-        if (error) {
-            return <div className='centered error'>An error has ocurred. Please try later.</div>
-        }
+    renderRecipes(recipes) {
         return (
             Object.keys(recipes).length === 0 ?
                 <div className='centered'>No recipes.</div>
@@ -70,14 +67,19 @@ class Dashboard extends Component {
                     recipes={recipes}
                     searchRecipe={(query, searchBy) => this.searchRecipes(query, searchBy)}/>
                 <div className='results'>
-                    { loading
+                    { (error) ?
+                        <div className='centered error'>An error has ocurred. Please Search engine API.</div>
+                        :
+                        ( loading
                         ? <Loader />
-                        : this.renderRecipes(recipes, error)
+                        : this.renderRecipes(recipes, error))
                     }
                 </div>
-                <div className="add-recipe">
-                    <Link to='add' className='add'>Add a recipe</Link>
-                </div>
+                { !error &&
+                    <div className="add-recipe">
+                        <Link to='add' className='add'>Add a recipe</Link>
+                    </div>
+                }
             </Fragment>
         )
     }
@@ -85,12 +87,12 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
 	recipes: PropTypes.object,
-    error: PropTypes.bool,
+    error: PropTypes.object,
 }
 
 Dashboard.defaultProps = {
 	recipes: {},
-    error: false
+    error: {}
 }
 
 function mapStateToProps({ recipes, error }, props){
