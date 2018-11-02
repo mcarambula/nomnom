@@ -45,7 +45,7 @@ class FormRecipe extends Component {
         /* Managing the add or edit recipe submission and getting back to home */
         this.props
             .handleRecipe(title, description, recipeId)
-            .then(() => this.props.history.replace({pathname: '/', state: { form: true, recipeId }}));
+            .then(() => this.props.history.replace('/'));
     }
     /* This function checks if the users is adding
         or editting a recipe to show the appropriate title */
@@ -61,6 +61,7 @@ class FormRecipe extends Component {
         or editting a recipe to call the appropiate back function */
     goBack(e, recipe) {
         e.preventDefault();
+
         return (recipe === null) ? this.props.history.goBack() : this.props.goBack();
     }
     render() {

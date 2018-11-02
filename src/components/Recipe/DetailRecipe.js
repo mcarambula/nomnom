@@ -28,7 +28,7 @@ class DetailRecipe extends Component {
                         onClick={() => history.goBack()}> Cancel </button>
                     <button
                         className='button'
-                        onClick={ () => this.setState({ edit: true }) }>Edit</button>
+                        onClick={ () => this.setState({ showEdit: true }) }>Edit</button>
                 </div>
             </div>
         )
@@ -59,7 +59,7 @@ class DetailRecipe extends Component {
                             {
                                 showEdit
                                 ?
-                                    <FormRecipe goBack={ () => this.setState({ edit: false })}/>
+                                    <FormRecipe goBack={() => this.setState({ showEdit: false })}/>
                                 :
                                     this.renderRecipeDetail(recipe, history, deleteRecipe)
                             }

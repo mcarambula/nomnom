@@ -9,8 +9,8 @@ const Recipe = ({ recipe, history }) => {
         history.push({ pathname: '/detail', state: { recipeId: recipe.id }});
     }
     return (
-        <div className='a-recipe' onClick={() => goToDetail(recipe)}>
-            <div className='a-recipe-thumbnail'>{recipe.title}</div>
+        <div className='recipe' onClick={() => goToDetail(recipe)}>
+            <div className='recipe-thumbnail'>{`${(recipe.title.length > 20 ) ? `${recipe.title.substring(0,20)}...` : recipe.title}`}</div>
         </div>
     )
 }

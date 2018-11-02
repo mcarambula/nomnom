@@ -14,7 +14,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             recipes : props.recipes || {},
-            loading : props.loading || false
+            loading : props.loading || false,
+            message: ''
         }
     }
     componentDidUpdate(prevProps) {
@@ -92,7 +93,7 @@ Dashboard.defaultProps = {
     error: false
 }
 
-function mapStateToProps({ recipes, error }){
+function mapStateToProps({ recipes, error }, props){
     return {
         loading: recipes === null && error === null,
         recipes,
