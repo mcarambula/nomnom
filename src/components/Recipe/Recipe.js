@@ -6,7 +6,7 @@ import './Recipe.scss';
 const Recipe = ({ recipe, history }) => {
     /* Go to the detail of the recipe */
     const goToDetail = (recipe) => {
-        history.push('/detail', { params: { recipeId: recipe.id }});
+        history.push({ pathname: '/detail', state: { recipeId: recipe.id }});
     }
     return (
         <div className='a-recipe' onClick={() => goToDetail(recipe)}>
@@ -17,10 +17,10 @@ const Recipe = ({ recipe, history }) => {
 
 Recipe.propTypes = {
 	recipe: PropTypes.object
-};
+}
 
 Recipe.defaultProps = {
 	recipe: {}
-};
+}
 
 export default withRouter(Recipe);

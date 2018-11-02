@@ -30,7 +30,9 @@ export const deleteRecipe = (recipe) => (dispatch) => {
     dispatch(showLoading());
     return API.deleteRecipe(recipe)
             .then((recipe) => {
-                dispatch(RECIPES_ACTIONS.deleteRecipe(recipe));
+                if (recipe !== null){
+                    dispatch(RECIPES_ACTIONS.deleteRecipe(recipe));
+                }
             })
             .then(() => dispatch(hideLoading()));
 

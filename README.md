@@ -1,28 +1,38 @@
 # NomNom Frontend Developer Coding Challenge
 
-Thank you for your interest in NomNom. We don't like puzzles and
-tricky questions, so we based all tasks on real-life problems
-we had to solve when building NomNom.
+This zip contains my implementation of the NomNom Frontend Developer Coding Challenge.
 
-## General rules
+For this project I used React + Redux + Redux Thunk + Sass.
 
-Only hard requirement is that you have to use ES6, SCSS or CSS, React and Redux.
-Utility libraries are fine (e.g. lodash, ramda or Immutable.js) but please don't use
-any other libraries or frameworks. We want to see **your** code!
+Through this app, the user will be able to add, edit, delete recipes, and also he will be able to search recipes by id or a regex.
 
-Sorry, no Ember, Angular or Prototype.js+Script.aculo.us.
+## Tested on
+This app has been tested on Chrome, Firefox, Safari and IE11.
 
-Once your solution is complete, please make sure to:
 
-- use the attached API in your solution
-- ensure that your code works with case-sensitive file systems
-- document how to get everything running, bonus points if you're using Docker
-- zip the whole project directory, including `.git`, we're curious about your
-  commit history
-- email it to us
+## Getting started
 
-If you have doubts or something is not clear - do not hesitate to ask!
+### Step 1:
+Extract all the files and install the latest version of [Node](https://nodejs.org/).
 
+### Step 2:
+
+After successfully finish the installation, cd into your project directory and run the command "npm install". This will take a while for your first install as it will download all the project dependencies.
+
+```
+cd /challenge_nomnom
+$ npm install
+```
+
+### Step 3:
+When the installation of the dependencies has finished, you should be able to do:
+
+```
+$ npm start
+```
+
+This will start the local server for development and the project will be now running on: `http://localhost:8080/`.
+To test all the functionalities you need to start the Search engine API
 
 ## Search engine API
 
@@ -36,121 +46,3 @@ The only dependency is Docker, you can get it from https://www.docker.com/commun
 
 The API is available via `localhost` on port `8088`. Cross Origin Resource Sharing is
 enabled and the API will be reachable from any browser context.
-
-## The API
-
-### `POST /_store`
-
-Store given recipe, recipe has to have the following attributes:
-
-- content - the text content
-- title - title of the recipe
-- id - **optional** used when upserting
-
-Returns an object with status field and id of the recipe. Note: recipes can
-be upserted, meaning that if a request with the same id is made the content will
-be updated.
-
-Example:
-
-```
-curl -X POST  localhost:8088/_store \
-     -H 'Content-type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{ "content" : "I really like bananas", "title" : "bananas" }'
-
-# => { "status" : "ack", "id" : "abc" }
-```
-
-### `POST /_find`
-
-Returns stored recipes. When an `id` is passed - fetches recipe with given ID.
-Accepts a `query` key, which can find recipes by doing a regex match on the title and content .
-
-**Note**: `query` has to be a valid regex string!
-
-Example, find by ID:
-
-```
-curl -X POST localhost:8088/_find  \
-     -H 'Content-type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{ "id" : "abc" }'
-# => [{ "content" : "I really like bananas",
-       "title" : "bananas",
-       "id" : "abc",
-       "created_at" : "2018-05-21T12:33Z" }]
-```
-
-Example, find all:
-
-```
-curl -X POST localhost:8088/_find  \
-     -H 'Content-type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{}'
-# => [{ "content" : "pineapples\nare cool too",
-       "title" : "pineapples",
-       "id" : "def",
-       "created_at" : "2018-05-22T12:33Z" },
-      { "content" : "I really like bananas",
-       "title" : "bananas",
-       "id" : "abc",
-       "created_at" : "2018-05-21T12:33Z" }]
-```
-
-Example, find by query:
-
-```
-curl -X POST localhost:8088/_find  \
-     -H 'Content-type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{"query" : "bana.+"}'
-# => [{ "content" : "I really like bananas",
-       "title" : "bananas",
-       "id" : "abc",
-       "created_at" : "2018-05-21T12:33Z" }]
-```
-
-
-### `POST /_delete`
-
-Deletes recipe from the index.
-
-```
-curl -X POST localhost:8088/_delete  \
-     -H 'Content-type: application/json' \
-     -H 'Accept: application/json' \
-     -d '{ "id" : "abc" }'
-# => { "status" : "ack" }
-```
-
-## The Frontend
-
-We have prepared a basic FE boilerplate, so feel free to use/modify it and implement on top of it.
-After `npm install` just run `npm start` to run the app. You can access WebPack's dev server at
-
-http://localhost:8080
-
-## Simple recipe app
-
-Implement a simple recipe store web application. Users
-should be able to:
-
-
-- list all recipes
-- search through recipes
-- show single recipe
-- create/read/update/delete recipes
-
-### Optional task
-
-**Optionally** you can show-off your CSS skills.
-Please follow the attached UI example to use as a blueprint for the UI elements'
-look and feel - we want to make sure that users have a great experience after all!
-
-![](./fw-challenge-ui-toolkit.png)
-
----
-
-Good luck!

@@ -6,6 +6,7 @@ import { handleInitialData } from '../../actions/shared';
 import './App.scss';
 
 class App extends Component {
+    /* Getting the initial data for the application - recipes */
     componentDidMount(){
         this.props.handleInitialData();
     }

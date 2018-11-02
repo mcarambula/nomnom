@@ -5,6 +5,9 @@
     form {
         max-width: 700px;
         margin: 0 auto;
+        background: $smokeWhite;
+        padding: 1px 20px 22px;
+        border-radius: 2px;
         label {
             margin: 20px 0 5px;
             display: block;
@@ -21,10 +24,15 @@
             background: $lightGray;
             border: none;
             border-radius: 1px;
+            font-size: 12px;
             font-family: 'Montserrat', sans-serif;
         }
         textarea {
             height: 150px;
         }
+    }
+    .error {
+		color: $alert;
+        font-size: 10px;
     }
 }

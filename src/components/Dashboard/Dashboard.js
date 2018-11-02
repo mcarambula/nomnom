@@ -1,5 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { searchRecipe } from '../../api/api';
 import SearchInput from '../Search/SearchInput';
@@ -20,6 +22,7 @@ class Dashboard extends Component {
             this.setState({ recipes: this.props.recipes, loading: false });
         }
     }
+    /* Render the recipes in a grid layout */
     gridRecipes(recipes) {
         return Object.keys(recipes).map(i => {
             const recipe = recipes[i];
@@ -41,17 +44,18 @@ class Dashboard extends Component {
                 </div>
         )
     }
+    /* This functions allows to search the recipes given an id or regex */
     searchRecipes(query) {
         if (query === '') {
-			return this.setState({recipes: this.props.recipes, loading: false });
+			return this.setState({ recipes: this.props.recipes, loading: false });
 		}
 		this.setState({ loading: true }, () => {
 			searchRecipe(query)
 				.then(searchedRecipes => {
-                    this.setState({recipes: searchedRecipes, loading: false })
+                    this.setState({ recipes: searchedRecipes, loading: false })
 				})
 				.catch(e => {
-                    this.setState({recipes: {}, loading: false});
+                    this.setState({ recipes: {}, loading: false });
 				});
 			}
 		);
@@ -78,6 +82,16 @@ class Dashboard extends Component {
     }
 }
 
+Dashboard.propTypes = {
+	recipes: PropTypes.object,
+    error: PropTypes.bool,
+}
+
+Dashboard.defaultProps = {
+	recipes: {},
+    error: false
+}
+
 function mapStateToProps({ recipes, error }){
     return {
         loading: recipes === null && error === null,
@@ -86,4 +100,4 @@ function mapStateToProps({ recipes, error }){
     }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default  withRouter(connect(mapStateToProps)(Dashboard));

@@ -30,7 +30,7 @@ class SearchInput extends Component {
 		//Showing the search icon only if there's recipes created.
 		const showSearch = (Object.keys(recipes).length !== 0) ? true : false;
 		return (
-			<div className='search-books-input-wrapper'>
+			<div className='search-recipes-input-wrapper'>
 				<div className='app-title'>
 					List of recipes
 					{ showSearch &&

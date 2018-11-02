@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { handleRecipe } from '../../actions/shared';
-import './AddRecipe.scss';
+import './FormRecipe.scss';
 
 class FormRecipe extends Component {
     constructor(props) {
-        super();
-        console.log(props);
+        super(props);
         this.state = {
             title: (props.recipe !== null ) ? props.recipe.title : '',
-            description: (props.recipe !== null ) ? props.recipe.content : ''
+            description: (props.recipe !== null ) ? props.recipe.content : '',
+            formError: {
+                title: false,
+                description: false
+            }
         }
     }
     handleInput( e, option ) {
@@ -24,24 +28,43 @@ class FormRecipe extends Component {
         e.preventDefault();
         this.setState({ submitting: true });
         const { title, description } = this.state;
+        /* If recipeId has a value is become the user is coming to edit a recipe */
         const recipeId = (this.props.recipe !== null) ? this.props.recipe.id : null;
-        /* Adding the recipe */
+        /* Checking submission errors */
+        let formError = {title: false, description: false};
+        if (title === '' || description === '') {
+            if (title === '') {
+                formError.title = true;
+            }
+            if (description === '') {
+                formError.description = true;
+            }
+            return this.setState({formError, submitting: false});
+        }
+
+        /* Managing the add or edit recipe submission and getting back to home */
         this.props
             .handleRecipe(title, description, recipeId)
-            .then(() => this.props.history.push('/'));
+            .then(() => this.props.history.replace({pathname: '/', state: { form: true, recipeId }}));
     }
+    /* This function checks if the users is adding
+        or editting a recipe to show the appropriate title */
     renderTitle(recipe) {
         return (recipe === null) ? <h3 className='app-title'>Add a new recipe</h3> : null;
     }
+    /* This function checks if the users is adding
+        or editting a recipe to show the appropriate text  button */
     renderButtonText(recipe) {
         return (recipe === null) ? 'Add' : 'Submit';
     }
-    goBack(e) {
+    /* This function checks if the users is adding
+        or editting a recipe to call the appropiate back function */
+    goBack(e, recipe) {
         e.preventDefault();
-        this.props.history.goBack();
+        return (recipe === null) ? this.props.history.goBack() : this.props.goBack();
     }
     render() {
-        const { title, description, submitting } = this.state;
+        const { title, description, submitting, formError } = this.state;
         const { recipe } = this.props;
         return (
             <div className='add-content'>
@@ -53,21 +76,25 @@ class FormRecipe extends Component {
                         type='text'
                         value={title}
                         className='form-input'
-                        placeholder='Reciple Title'
+                        placeholder='Eg: 3 Ingredient Nutella Brownies'
                         onChange={(e) => this.handleInput(e, 'title')}
                         />
+                    { formError.title
+                        && <div className='error'>Please fill the recipe title.</div> }
                     <label>Recipe Description</label>
                     <textarea
                          name='description'
                          type='text'
                          value={description}
                          className='form-input'
-                         placeholder='Recipe Description'
+                         placeholder='E.g: 1 cup (8oz/240g), Nutella 2 eggs (or egg substitutes for brownies), 10 tablespoons all purpose flour'
                          onChange={(e) => this.handleInput(e, 'description')}
                          />
+                    { formError.description
+                        && <div className='error'>Please fill the content of the recipe.</div> }
                      <button
                         className='cancel-button'
-                        disabled={submitting} onClick={(e) => this.goBack(e)}>
+                        disabled={submitting} onClick={(e) => this.goBack(e, recipe)}>
                             Cancel
                     </button>
                      <button
@@ -81,10 +108,18 @@ class FormRecipe extends Component {
     }
 }
 
+FormRecipe.propTypes = {
+	recipe: PropTypes.object
+}
+
+FormRecipe.defaultProps = {
+	recipe: {}
+}
+
 const mapDispatchToProps = { handleRecipe };
 
 function mapStateToProps({ recipes }, { history }){
-    const params = (history.location.state !== undefined) ? history.location.state.params : { recipeId: null };
+    const params = (history.location.state !== undefined) ? history.location.state : { recipeId: null };
     const { recipeId } = params;
     return {
         recipe: recipes[recipeId] || null

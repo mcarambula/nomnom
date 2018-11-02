@@ -1,28 +1,37 @@
+@import '../../styles/index';
+
 .recipe-detail {
     padding: 20px;
-    label {
-        margin: 10px 0;
-        display: block;
-    }
-    .recipe-thumbnail {
-        width: 250px;
-        height: 150px;
-        background: url('../../assets/thumbnail.jpg');
-        background-repeat: no-repeat;
-        background-size: contain;
-        @media screen and (max-width: 640px) {
-            margin: 0 auto 20px;
-        }
-    }
     .recipe-detail-container {
+        background: $smokeWhite;
         width: 100%;
         max-width: 700px;
-        display: flex;
         margin: 0 auto;
-        @media screen and (max-width: 640px) {
-            flex-direction: column;
+        padding: 10px;
+        label {
+            margin: 10px 0;
+            display: block;
+        }
+        .recipe-thumbnail {
+            width: 250px;
+            height: 150px;
+            background: url('../../assets/thumbnail.jpg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-right: 10px;
+            @media screen and (max-width: 640px) {
+                margin: 0 auto 20px;
+            }
+        }
+        .recipe-detail-content {
+            display: flex;
+            margin: 0 auto;
+            @media screen and (max-width: 640px) {
+                flex-direction: column;
+            }
         }
     }
+
     .trash {
         width: 20px;
         height: 20px;

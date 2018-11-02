@@ -12,9 +12,7 @@ export function getInitialData () {
 }
 
 export function manageRecipe({title, content, id}) {
-    console.log(id);
     const params = (id !== null) ? { title, content, id } : {  title, content }
-    console.log(params);
     return axios.post(`${url}/_store`, params)
       .then(response => checkStatus(response))
       .then(res => ({
@@ -23,8 +21,8 @@ export function manageRecipe({title, content, id}) {
               id: res.data.id
         })
       )
-      .catch(function (error) {
-          console.log('errr', error);
+      .catch(function (err) {
+          throw new Error(err);
       });
 }
 
@@ -65,8 +63,10 @@ export function deleteRecipe(recipe) {
     return axios.post(`${url}/_delete`, { id : recipe.id })
       .then(response => {
           const { data } = response;
-          console.log(data);
-          return recipe;
+          if (data.status === 'ack') {
+              return recipe;
+          }
+          return null;
       })
       .catch(function (err) {
           throw new Error(err);
