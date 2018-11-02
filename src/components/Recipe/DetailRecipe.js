@@ -1,43 +1,62 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AddRecipe from './AddRecipe';
 import { deleteRecipe } from '../../actions/shared';
+import FormRecipe from './FormRecipe';
 import './DetailRecipe.scss';
 
-const DetailRecipe = ({ recipe, history, deleteRecipe }) => {
-    /* If recipe comes null is because the user wants to add a new one */
-    if (recipe === null) {
-        return <AddRecipe />;
+class DetailRecipe extends Component {
+    constructor() {
+        super();
+        this.state = {
+            edit: false
+        }
     }
-    return (
-        <div className='recipe-detail'>
-            <div className='recipe-title-container'>
-                <h3 className='app-title'>
-                    {recipe.title}
-                    <img
-                        src={require('../../icons/icon-trash.png')}
-                        className='trash' alt='Delete Recipe'
-                        onClick={() => deleteRecipe(recipe).then(() => history.replace('/')) }
-                         />
-                </h3>
-            </div>
-            <div className='recipe-detail-container'>
-                <div className='recipe-thumbnail'/>
-                <div className='container'>
-                    <div>{recipe.content}</div>
+    renderRecipeDetail(recipe, history, deleteRecipe, edit) {
+        return (
+            <Fragment>
+                <div className='recipe-detail-container'>
+                    <div className='recipe-thumbnail'/>
+                    <div className='container'>
+                        <div>{recipe.content}</div>
+                    </div>
                 </div>
+                <div className='recipe-detail-buttons'>
+                    <button
+                        className='cancel-button'
+                        onClick={() => history.goBack()}> Cancel </button>
+                    <button
+                        className='button'
+                        onClick={ () => this.setState({ edit: true }) }>Edit</button>
+                </div>
+            </Fragment>
+        )
+    }
+    render() {
+        const { recipe, history, deleteRecipe } = this.props;
+        const { edit } = this.state;
+        return (
+            <div className='recipe-detail'>
+                <div className='recipe-title-container'>
+                    <h3 className='app-title'>
+                        {recipe.title}
+                        <img
+                            src={require('../../icons/icon-trash.png')}
+                            className='trash' alt='Delete Recipe'
+                            onClick={() => deleteRecipe(recipe).then(() => history.replace('/')) }
+                             />
+                    </h3>
+                </div>
+                {
+                    edit
+                    ?
+                        <FormRecipe />
+                    :
+                        this.renderRecipeDetail(recipe, history, deleteRecipe)
+                }
             </div>
-            <div className='recipe-detail-buttons'>
-                <button
-                    className='cancel-button'
-                    onClick={() => history.goBack()}> Cancel </button>
-                <button
-                    className='button'
-                    onClick={ () => history.push('/edit', { params: { recipeId: recipe.id }}) }>Edit</button>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 const mapDispatchToProps = { deleteRecipe };

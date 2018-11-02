@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
-import AddRecipe from '../Recipe/AddRecipe';
+import FormRecipe from '../Recipe/FormRecipe';
 import DetailRecipe from '../Recipe/DetailRecipe';
 
 class AppRoutes extends Component {
@@ -15,11 +15,7 @@ class AppRoutes extends Component {
                 />
                 <Route
                     path='/add'
-                    render={() => <AddRecipe />}
-                />
-                <Route
-                    path='/edit'
-                    render={() => <AddRecipe />}
+                    render={() => <FormRecipe />}
                 />
                 <Route
                     path='/detail'

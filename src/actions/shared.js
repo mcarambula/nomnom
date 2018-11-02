@@ -17,9 +17,9 @@ export const handleInitialData = () => (dispatch) => {
             })
 }
 /* Thunk that will be triggered when the user adds a new recipe */
-export const handleAddRecipe = (title, content) => ( dispatch ) => {
+export const handleRecipe = (title, content, id) => ( dispatch ) => {
     dispatch(showLoading());
-    return API.addRecipe({title, content})
+    return API.manageRecipe({title, content, id})
             .then((recipe) => {
                 dispatch(RECIPES_ACTIONS.addRecipe(recipe));
             })

@@ -3,11 +3,14 @@
 .add-content {
     padding: 0 20px;
     form {
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
         label {
             margin: 20px 0 5px;
             display: block;
+            text-transform: uppercase;
+            color: $labelGray;
+            font-size: 12px;
         }
         .form-input {
             display: block;
@@ -15,6 +18,10 @@
             border: 1px solid $gray;
             width: 100%;
             box-sizing: border-box;
+            background: $lightGray;
+            border: none;
+            border-radius: 1px;
+            font-family: 'Montserrat', sans-serif;
         }
         textarea {
             height: 150px;

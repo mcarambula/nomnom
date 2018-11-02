@@ -11,11 +11,11 @@ export function getInitialData () {
     }));
 }
 
-export function addRecipe({title, content}) {
-    return axios.post(`${url}/_store`, {
-        title,
-        content
-      })
+export function manageRecipe({title, content, id}) {
+    console.log(id);
+    const params = (id !== null) ? { title, content, id } : {  title, content }
+    console.log(params);
+    return axios.post(`${url}/_store`, params)
       .then(response => checkStatus(response))
       .then(res => ({
               title,
@@ -48,7 +48,12 @@ export function searchRecipe(query) {
     return axios.post(`${url}/_find`, { id : query })
       .then(response => {
           const { data } = response;
-          console.log(data);
+          let newData = {};
+          /* Storing the recipes by its own id */
+          Object.keys(data).map((recipe, i) => {
+              return newData[data[i].id] = { ...data[i] };
+          })
+          return newData;
       })
       .catch(function (err) {
           throw new Error(err);

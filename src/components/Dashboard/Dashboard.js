@@ -4,9 +4,22 @@ import { connect } from 'react-redux';
 import { searchRecipe } from '../../api/api';
 import SearchInput from '../Search/SearchInput';
 import Recipe from '../Recipe/Recipe';
+import Loader from '../Loader/Loader';
 import './Dashboard.scss';
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            recipes : props.recipes || {},
+            loading : props.loading || false
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.recipes !== this.props.recipes) {
+            this.setState({ recipes: this.props.recipes, loading: false });
+        }
+    }
     gridRecipes(recipes) {
         return Object.keys(recipes).map(i => {
             const recipe = recipes[i];
@@ -21,7 +34,7 @@ class Dashboard extends Component {
         }
         return (
             Object.keys(recipes).length === 0 ?
-                <div className='centered'>There's no recipe yet.</div>
+                <div className='centered'>No recipes.</div>
             :
                 <div className='grid-recipe'>
                     {this.gridRecipes(recipes)}
@@ -29,36 +42,36 @@ class Dashboard extends Component {
         )
     }
     searchRecipes(query) {
-        console.log(query);
-		if (query === '') {
-			this.setState({search: '', recipes: [], loading: false });
-			return;
+        if (query === '') {
+			return this.setState({recipes: this.props.recipes, loading: false });
 		}
-		/* Wait until the state is updating to make the call to the API */
-		this.setState({ loading: true, search: query }, () => {
+		this.setState({ loading: true }, () => {
 			searchRecipe(query)
 				.then(searchedRecipes => {
-
-
+                    this.setState({recipes: searchedRecipes, loading: false })
 				})
 				.catch(e => {
+                    this.setState({recipes: {}, loading: false});
 				});
 			}
 		);
 	}
     render() {
-        const { loading, recipes, error } = this.props;
+        const { loading, recipes } = this.state;
+        const { error } = this.props;
         return (
             <Fragment>
-                <SearchInput recipes={recipes} searchRecipe={(query) => this.searchRecipes(query)}/>
+                <SearchInput
+                    recipes={recipes}
+                    searchRecipe={(query) => this.searchRecipes(query)}/>
                 <div className='results'>
                     { loading
-                        ? <div>Loading ... </div>
+                        ? <Loader />
                         : this.renderRecipes(recipes, error)
                     }
                 </div>
                 <div className="add-recipe">
-                    <Link to='add' className='add'>Add a book</Link>
+                    <Link to='add' className='add'>Add a recipe</Link>
                 </div>
             </Fragment>
         )

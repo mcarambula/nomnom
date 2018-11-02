@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchInput.scss';
 
 class SearchInput extends Component {
@@ -15,6 +16,7 @@ class SearchInput extends Component {
 	}
 	cleanInput(){
 		this.setState({ search: '', show: false });
+		this.props.searchRecipe('');
 	}
 	showInput() {
 		this.setState({show: true}, () => this.searchInput.focus());
@@ -25,6 +27,7 @@ class SearchInput extends Component {
 	}
 	render() {
 		const recipes = this.props.recipes || {};
+		//Showing the search icon only if there's recipes created.
 		const showSearch = (Object.keys(recipes).length !== 0) ? true : false;
 		return (
 			<div className='search-books-input-wrapper'>
@@ -34,7 +37,9 @@ class SearchInput extends Component {
 						<div className='show-search' onClick={() => this.showInput()}/>
 					}
 				</div>
-				<form onSubmit={(e) => this.searchRecipe(e)}>
+				<form
+					className={`input-search-form ${this.state.show ? 'open' : ''}`}
+					onSubmit={(e) => this.searchRecipe(e)}>
 					<input
 						type='text'
 						value={this.state.search}
@@ -52,4 +57,11 @@ class SearchInput extends Component {
 	}
 }
 
+SearchInput.propTypes = {
+	searchRecipe: PropTypes.func
+};
+
+SearchInput.defaultProps = {
+	searchRecipe: () => {}
+};
 export default SearchInput;

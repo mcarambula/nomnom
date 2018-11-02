@@ -13,14 +13,7 @@
 }
 
 button {
-	background: $yellow;
-	color: $black;
-	cursor: pointer;
-	border: 1px solid transparent;
-	border-radius: 3px;
-	padding: 12px 25px;
-	font-size: 14px;
-	margin-top: 15px;
+	@extend .primary-button;
 	width: 48%;
 	&:last-child {
 		margin-left: 2%;
@@ -28,15 +21,5 @@ button {
 	}
 }
 .cancel-button {
-	background: transparent;
-	border: 1px solid #000;
-	margin-right: 2%;
-	display: inline-block;
-	padding: 12px 25px;
-	width: 48%;
-	box-sizing: border-box;
-	text-align: center;
-	text-decoration: none;
-	color: black;
-	font-size: 14px;
+	@extend .secondary-button;
 }

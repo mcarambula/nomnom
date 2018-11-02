@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleAddRecipe } from '../../actions/shared';
+import { handleRecipe } from '../../actions/shared';
 import './AddRecipe.scss';
 
-class AddRecipe extends Component {
-    constructor() {
+class FormRecipe extends Component {
+    constructor(props) {
         super();
+        console.log(props);
         this.state = {
-            title: '',
-            description: ''
+            title: (props.recipe !== null ) ? props.recipe.title : '',
+            description: (props.recipe !== null ) ? props.recipe.content : ''
         }
     }
     handleInput( e, option ) {
@@ -23,19 +24,28 @@ class AddRecipe extends Component {
         e.preventDefault();
         this.setState({ submitting: true });
         const { title, description } = this.state;
+        const recipeId = (this.props.recipe !== null) ? this.props.recipe.id : null;
+        /* Adding the recipe */
         this.props
-            .handleAddRecipe(title, description)
+            .handleRecipe(title, description, recipeId)
             .then(() => this.props.history.push('/'));
     }
     renderTitle(recipe) {
-        return (recipe === null) ? 'Add a new recipe': 'Edit recipe'
+        return (recipe === null) ? <h3 className='app-title'>Add a new recipe</h3> : null;
+    }
+    renderButtonText(recipe) {
+        return (recipe === null) ? 'Add' : 'Submit';
+    }
+    goBack(e) {
+        e.preventDefault();
+        this.props.history.goBack();
     }
     render() {
         const { title, description, submitting } = this.state;
         const { recipe } = this.props;
         return (
             <div className='add-content'>
-                <h3 className='app-title'>{this.renderTitle(recipe)}</h3>
+                {this.renderTitle(recipe)}
                 <form onSubmit={(e) => this.handleSubmit(e)}>
                     <label>Recipe Title</label>
                     <input
@@ -55,15 +65,23 @@ class AddRecipe extends Component {
                          placeholder='Recipe Description'
                          onChange={(e) => this.handleInput(e, 'description')}
                          />
-                     <button className='cancel-button' disabled={submitting} onClick={() => this.props.history.goBack()}> Cancel </button>
-                     <button className='button' disabled={submitting}>{submitting ? 'Saving...': 'Submit'}</button>
+                     <button
+                        className='cancel-button'
+                        disabled={submitting} onClick={(e) => this.goBack(e)}>
+                            Cancel
+                    </button>
+                     <button
+                        className='button'
+                        disabled={submitting}>
+                        {submitting ? 'Saving...': this.renderButtonText(recipe)}
+                    </button>
                  </form>
             </div>
         )
     }
 }
 
-const mapDispatchToProps = { handleAddRecipe };
+const mapDispatchToProps = { handleRecipe };
 
 function mapStateToProps({ recipes }, { history }){
     const params = (history.location.state !== undefined) ? history.location.state.params : { recipeId: null };
@@ -73,4 +91,4 @@ function mapStateToProps({ recipes }, { history }){
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AddRecipe));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FormRecipe));

@@ -5,3 +5,42 @@ $lightGray:  #e8e8e8;
 $gray: #333;
 $gray2: #474747;
 $alert: #f44336;
+$labelGray: #9d9d9d;
+
+
+.primary-button {
+    background: $yellow;
+	color: $black;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	padding: 12px 25px;
+	font-size: 14px;
+	margin-top: 15px;
+    transition: all 0.5s;
+    &:hover {
+        background: $black;
+        color: $yellow;
+    }
+}
+
+.secondary-button {
+    cursor: pointer;
+    background: transparent;
+	border: 1px solid #000;
+	margin-right: 2%;
+	display: inline-block;
+	padding: 12px 25px;
+	width: 48%;
+	box-sizing: border-box;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	font-size: 14px;
+    transition: all 0.2s;
+    &:hover {
+        border: 1px solid $yellow;
+        color: $yellow;
+        background: rgba(255, 201, 0, 0.05);
+    }
+}
