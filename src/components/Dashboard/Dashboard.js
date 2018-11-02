@@ -46,12 +46,12 @@ class Dashboard extends Component {
         )
     }
     /* This functions allows to search the recipes given an id or regex */
-    searchRecipes(query) {
+    searchRecipes(query, searchBy) {
         if (query === '') {
 			return this.setState({ recipes: this.props.recipes, loading: false });
 		}
 		this.setState({ loading: true }, () => {
-			searchRecipe(query)
+			searchRecipe(query, searchBy)
 				.then(searchedRecipes => {
                     this.setState({ recipes: searchedRecipes, loading: false })
 				})
@@ -68,7 +68,7 @@ class Dashboard extends Component {
             <Fragment>
                 <SearchInput
                     recipes={recipes}
-                    searchRecipe={(query) => this.searchRecipes(query)}/>
+                    searchRecipe={(query, searchBy) => this.searchRecipes(query, searchBy)}/>
                 <div className='results'>
                     { loading
                         ? <Loader />

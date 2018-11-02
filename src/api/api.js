@@ -42,8 +42,8 @@ export function getRecipes() {
       });
 }
 
-export function searchRecipe(query) {
-    return axios.post(`${url}/_find`, { id : query })
+export function searchRecipe(query, searchBy) {
+    return axios.post(`${url}/_find`, { [searchBy] : query })
       .then(response => {
           const { data } = response;
           let newData = {};

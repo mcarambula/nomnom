@@ -42,9 +42,20 @@
 		width: 0%;
 		transition: width 0.5s;
 		&.open {
-			width: 100%;
+			width: 80%;
 			box-sizing: border-box;
 		    right: 0;
+		}
+	}
+	.input-search-by {
+		width: 0%;
+		transition: width 0.5s;
+		color: transparent;
+		&.open {
+			width: 20%;
+			box-sizing: border-box;
+		    right: 0;
+			color: inherit;
 		}
 	}
 	.clean-search {
