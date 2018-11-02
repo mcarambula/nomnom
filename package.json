@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --open --mode=development"
   },
   "keywords": [],
-  "author": "",
+  "author": "Marion Carambula",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",

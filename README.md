@@ -4,11 +4,10 @@ This zip contains my implementation of the NomNom Frontend Developer Coding Chal
 
 For this project I used React + Redux + Redux Thunk + Sass.
 
-Through this app, the user will be able to add, edit, delete recipes, and also he will be able to search recipes by id or a regex.
+Through this app, the user will be able to add, edit, delete and search recipes by id or a regex.
 
 ## Tested on
 This app has been tested on Chrome, Firefox, Safari and IE11.
-
 
 ## Getting started
 

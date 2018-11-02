@@ -8,6 +8,7 @@
         max-width: 700px;
         margin: 0 auto;
         padding: 10px;
+        box-sizing: border-box;
         label {
             margin: 10px 0;
             display: block;
@@ -19,6 +20,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             margin-right: 10px;
+            background-position: top center;
             @media screen and (max-width: 640px) {
                 margin: 0 auto 20px;
             }
@@ -29,6 +31,12 @@
             @media screen and (max-width: 640px) {
                 flex-direction: column;
             }
+        }
+        pre {
+            white-space: pre-line;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            margin: 0;
         }
     }
 

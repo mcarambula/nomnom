@@ -19,7 +19,7 @@ class DetailRecipe extends Component {
                 <div className='recipe-detail-content'>
                     <div className='recipe-thumbnail'/>
                     <div className='container'>
-                        <div>{recipe.content}</div>
+                        <div><pre>{recipe.content}</pre></div>
                     </div>
                 </div>
                 <div className='recipe-detail-buttons'>
