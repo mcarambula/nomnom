@@ -49,13 +49,15 @@
 	}
 	.input-search-by {
 		width: 0%;
-		transition: width 0.5s;
+		transition: all 0.5s;
 		color: transparent;
+		display: none;
 		&.open {
 			width: 20%;
 			box-sizing: border-box;
 		    right: 0;
 			color: inherit;
+			display: inline-block;
 		}
 	}
 	.clean-search {
